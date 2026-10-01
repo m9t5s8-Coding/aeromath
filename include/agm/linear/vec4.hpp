@@ -25,43 +25,51 @@ struct alignas(sizeof(T) * 4) vec4 {
   constexpr vec4(vec4<T>&&) noexcept = default;
 
   // Copy Assigment
-  constexpr vec4& operator=(const vec4<T>&) noexcept = default;
+  constexpr vec4&
+  operator=(const vec4<T>&) noexcept = default;
 
   // Move Assignment
-  constexpr vec4& operator=(vec4<T>&&) noexcept = default;
+  constexpr vec4&
+  operator=(vec4<T>&&) noexcept = default;
 
-  constexpr vec4(T x_, T y_, T z_, T w_) noexcept
-    : x(x_),
-      y(y_),
-      z(z_),
-      w(w_) {}
+  constexpr vec4(T x_,
+                 T y_,
+                 T z_,
+                 T w_) noexcept
+      : x(x_),
+        y(y_),
+        z(z_),
+        w(w_) {}
 
   explicit constexpr vec4(T s_) noexcept
-    : x(s_),
-      y(s_),
-      z(s_),
-      w(s_) {}
+      : x(s_),
+        y(s_),
+        z(s_),
+        w(s_) {}
 
   explicit constexpr vec4(const T* const array_ptr) noexcept
-    : x(array_ptr[0]),
-      y(array_ptr[1]),
-      z(array_ptr[2]),
-      w(array_ptr[3]) {}
+      : x(array_ptr[0]),
+        y(array_ptr[1]),
+        z(array_ptr[2]),
+        w(array_ptr[3]) {}
 
   template <typename U>
   vec4(const vec4<U>&) = delete;
 
-  [[nodiscard]] constexpr const T& operator[](size_t index) const noexcept {
+  [[nodiscard]] constexpr const T&
+  operator[](size_t index) const noexcept {
     assert(index < 4 && "vec4 index is out of bounds! must be from 0 - 3");
     return (&x)[index];
   }
 
-  [[nodiscard]] constexpr T& operator[](size_t index) noexcept {
+  [[nodiscard]] constexpr T&
+  operator[](size_t index) noexcept {
     assert(index < 4 && "vec4 index is out of bounds! must be from 0 - 3");
     return (&x)[index];
   }
 
-  constexpr vec4<T>& operator+=(const vec4<T>& other) noexcept {
+  constexpr vec4<T>&
+  operator+=(const vec4<T>& other) noexcept {
     this->x += other.x;
     this->y += other.y;
     this->z += other.z;
@@ -69,7 +77,8 @@ struct alignas(sizeof(T) * 4) vec4 {
     return *this;
   }
 
-  constexpr vec4<T>& operator+=(T scalar) noexcept {
+  constexpr vec4<T>&
+  operator+=(T scalar) noexcept {
     this->x += scalar;
     this->y += scalar;
     this->z += scalar;
@@ -77,7 +86,8 @@ struct alignas(sizeof(T) * 4) vec4 {
     return *this;
   }
 
-  constexpr vec4<T>& operator-=(const vec4<T>& other) noexcept {
+  constexpr vec4<T>&
+  operator-=(const vec4<T>& other) noexcept {
     this->x -= other.x;
     this->y -= other.y;
     this->z -= other.z;
@@ -85,7 +95,8 @@ struct alignas(sizeof(T) * 4) vec4 {
     return *this;
   }
 
-  constexpr vec4<T>& operator-=(T scalar) noexcept {
+  constexpr vec4<T>&
+  operator-=(T scalar) noexcept {
     this->x -= scalar;
     this->y -= scalar;
     this->z -= scalar;
@@ -93,7 +104,8 @@ struct alignas(sizeof(T) * 4) vec4 {
     return *this;
   }
 
-  constexpr vec4<T>& operator*=(const vec4<T>& other) noexcept {
+  constexpr vec4<T>&
+  operator*=(const vec4<T>& other) noexcept {
     this->x *= other.x;
     this->y *= other.y;
     this->z *= other.z;
@@ -101,7 +113,8 @@ struct alignas(sizeof(T) * 4) vec4 {
     return *this;
   }
 
-  constexpr vec4<T>& operator*=(T scalar) noexcept {
+  constexpr vec4<T>&
+  operator*=(T scalar) noexcept {
     this->x *= scalar;
     this->y *= scalar;
     this->z *= scalar;
@@ -109,7 +122,8 @@ struct alignas(sizeof(T) * 4) vec4 {
     return *this;
   }
 
-  constexpr vec4<T>& operator/=(const vec4<T>& other) noexcept {
+  constexpr vec4<T>&
+  operator/=(const vec4<T>& other) noexcept {
     this->x /= other.x;
     this->y /= other.y;
     this->z /= other.z;
@@ -117,7 +131,8 @@ struct alignas(sizeof(T) * 4) vec4 {
     return *this;
   }
 
-  constexpr vec4<T>& operator/=(T scalar) noexcept {
+  constexpr vec4<T>&
+  operator/=(T scalar) noexcept {
     this->x /= scalar;
     this->y /= scalar;
     this->z /= scalar;
@@ -128,120 +143,151 @@ struct alignas(sizeof(T) * 4) vec4 {
 
 // Addition
 template <typename T>
-[[nodiscard]] constexpr vec4<T> operator+(vec4<T> lhs, const vec4<T>& rhs) noexcept {
+[[nodiscard]] constexpr vec4<T>
+operator+(vec4<T>        lhs,
+          const vec4<T>& rhs) noexcept {
   lhs += rhs;
   return lhs;
 }
 
 template <typename T>
-[[nodiscard]] constexpr vec4<T> operator+(T scalar, vec4<T> rhs) noexcept {
+[[nodiscard]] constexpr vec4<T>
+operator+(T       scalar,
+          vec4<T> rhs) noexcept {
   rhs += scalar;
   return rhs;
 }
 
 template <typename T>
-[[nodiscard]] constexpr vec4<T> operator+(vec4<T> lhs, T scalar) noexcept {
+[[nodiscard]] constexpr vec4<T>
+operator+(vec4<T> lhs,
+          T       scalar) noexcept {
   lhs += scalar;
   return lhs;
 }
 
 // Subtraction
 template <typename T>
-[[nodiscard]] constexpr vec4<T> operator-(vec4<T> lhs, const vec4<T>& rhs) noexcept {
+[[nodiscard]] constexpr vec4<T>
+operator-(vec4<T>        lhs,
+          const vec4<T>& rhs) noexcept {
   lhs -= rhs;
   return lhs;
 }
 
 template <typename T>
-[[nodiscard]] constexpr vec4<T> operator-(T scalar, const vec4<T>& rhs) noexcept {
+[[nodiscard]] constexpr vec4<T>
+operator-(T              scalar,
+          const vec4<T>& rhs) noexcept {
   return vec4<T>(scalar - rhs.x, scalar - rhs.y, scalar - rhs.z, scalar - rhs.w);
 }
 
 template <typename T>
-[[nodiscard]] constexpr vec4<T> operator-(vec4<T> lhs, T scalar) noexcept {
+[[nodiscard]] constexpr vec4<T>
+operator-(vec4<T> lhs,
+          T       scalar) noexcept {
   lhs -= scalar;
   return lhs;
 }
 
 // Multiplication
 template <typename T>
-[[nodiscard]] constexpr vec4<T> operator*(vec4<T> lhs, const vec4<T>& rhs) noexcept {
+[[nodiscard]] constexpr vec4<T>
+operator*(vec4<T>        lhs,
+          const vec4<T>& rhs) noexcept {
   lhs *= rhs;
   return lhs;
 }
 
 template <typename T>
-[[nodiscard]] constexpr vec4<T> operator*(T scalar, vec4<T> rhs) noexcept {
+[[nodiscard]] constexpr vec4<T>
+operator*(T       scalar,
+          vec4<T> rhs) noexcept {
   rhs *= scalar;
   return rhs;
 }
 
 template <typename T>
-[[nodiscard]] constexpr vec4<T> operator*(vec4<T> lhs, T scalar) noexcept {
+[[nodiscard]] constexpr vec4<T>
+operator*(vec4<T> lhs,
+          T       scalar) noexcept {
   lhs *= scalar;
   return lhs;
 }
 
 // Division
 template <typename T>
-[[nodiscard]] constexpr vec4<T> operator/(vec4<T> lhs, const vec4<T>& rhs) noexcept {
+[[nodiscard]] constexpr vec4<T>
+operator/(vec4<T>        lhs,
+          const vec4<T>& rhs) noexcept {
   lhs /= rhs;
   return lhs;
 }
 
 template <typename T>
-[[nodiscard]] constexpr vec4<T> operator/(T scalar, const vec4<T>& rhs) noexcept {
+[[nodiscard]] constexpr vec4<T>
+operator/(T              scalar,
+          const vec4<T>& rhs) noexcept {
   return vec4<T>(scalar / rhs.x, scalar / rhs.y, scalar / rhs.z, scalar / rhs.w);
 }
 
 template <typename T>
-[[nodiscard]] constexpr vec4<T> operator/(vec4<T> lhs, T scalar) noexcept {
+[[nodiscard]] constexpr vec4<T>
+operator/(vec4<T> lhs,
+          T       scalar) noexcept {
   lhs /= scalar;
   return lhs;
 }
 
 // Comparision
 template <typename T>
-constexpr bool operator==(const vec4<T>& lhs, const vec4<T>& rhs) noexcept {
+constexpr bool
+operator==(const vec4<T>& lhs,
+           const vec4<T>& rhs) noexcept {
   if constexpr (std::is_integral_v<T>) {
     return lhs.x == rhs.x && lhs.y == rhs.y && lhs.z == rhs.z && lhs.w == rhs.w;
   } else {
-    auto abs_val = [](T val) constexpr noexcept {
-      return val < T(0) ? -val : val;
-    };
+    auto abs_val = [](T val) constexpr noexcept { return val < T(0) ? -val : val; };
 
     constexpr T epsilon = T(0.00001);
-    return abs_val(lhs.x - rhs.x) < epsilon && abs_val(lhs.y - rhs.y) < epsilon &&
-           abs_val(lhs.z - rhs.z) < epsilon && abs_val(lhs.w - rhs.w) < epsilon;
+    return abs_val(lhs.x - rhs.x) < epsilon && abs_val(lhs.y - rhs.y) < epsilon && abs_val(lhs.z - rhs.z) < epsilon
+           && abs_val(lhs.w - rhs.w) < epsilon;
   }
 }
 
 template <typename T>
-constexpr bool operator!=(const vec4<T>& lhs, const vec4<T>& rhs) noexcept {
+constexpr bool
+operator!=(const vec4<T>& lhs,
+           const vec4<T>& rhs) noexcept {
   return !(lhs == rhs);
 }
 
 // Dot
 template <typename T>
-[[nodiscard]] constexpr T dot(const vec4<T>& lhs, const vec4<T>& rhs) noexcept {
+[[nodiscard]] constexpr T
+dot(const vec4<T>& lhs,
+    const vec4<T>& rhs) noexcept {
   return (lhs.x * rhs.x) + (lhs.y * rhs.y) + (lhs.z * rhs.z) + (lhs.w * rhs.w);
 }
 
 // Length Squared
 template <typename T>
-[[nodiscard]] constexpr T length_squared(const vec4<T>& v) noexcept {
+[[nodiscard]] constexpr T
+length_squared(const vec4<T>& v) noexcept {
   return dot(v, v);
 }
 
 // Length
 template <typename T>
-[[nodiscard]] inline T length(const vec4<T>& v) noexcept {
+[[nodiscard]] inline T
+length(const vec4<T>& v) noexcept {
   return std::sqrt(length_squared(v));
 }
 
 // Normalize
 template <typename T>
-[[nodiscard]] inline vec4<T> normalize(vec4<T> v) noexcept {
+[[nodiscard]] inline vec4<T>
+normalize(vec4<T> v) noexcept {
   T len = length(v);
   if (len > T(0)) {
     v /= len;
@@ -250,7 +296,9 @@ template <typename T>
 }
 
 template <typename T>
-std::ostream& operator<<(std::ostream& ss, const vec4<T>& other) {
+std::ostream&
+operator<<(std::ostream&  ss,
+           const vec4<T>& other) {
   ss << "(" << other.x << ", " << other.y << ", " << other.z << ", " << other.w << ")";
   return ss;
 }
@@ -270,4 +318,4 @@ using vec4_u64 = vec4<uint64_t>;
 using vec4f = vec4<float>;
 using vec4d = vec4<double>;
 
-}  // namespace agm
+} // namespace agm
